@@ -2,8 +2,10 @@ const express = require("express");
 const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
 const volleyball = require("volleyball");
-var cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser')
+const path = require("path");
 const app = express();
+
 
 //Sub Routes
 const auth = require("./routes/api/auth");
@@ -24,6 +26,7 @@ app.use(volleyball);
 //MongoDB Configuration
 const db = require("./connection/config");
 const passport = require("passport");
+const Profile = require("./models/Profile");
 
 //Connect to MongoDB
 mongoose.connect(
@@ -38,10 +41,64 @@ app.use(passport.initialize());
 
 require("./stratagies/jwtStrategy")(passport);
 
+//Set the view engine to ejs
+app.set('view engine', 'ejs');
+
 //Actual Routes
+// app.use(csrfProtection);
 app.use("/api/auth", auth);
 app.use("/api/auth", questions);
 app.use("/api/profile", profile);
+
+//Serving Static Files
+app.use('/public', express.static(path.join(__dirname, 'public')))
+
+
+//Page Routes
+app.get("/", (req, res) => {
+  res.render('pages/home')
+})
+
+app.get("/login", (req, res) => {
+  res.render('pages/login')
+})
+
+app.get("/register", (req, res) => {
+  res.render('pages/register')
+})
+
+app.get("/profiles", (req, res) => {
+  res.render('pages/profiles')
+})
+
+app.get("/dashboard", passport.authenticate("jwt", {
+  session: false
+}), (req, res) => {
+  Profile.findOne({
+    user: req.user.id
+  }, (err, profile) => {
+    console.log(profile)
+    const media = profile.social;
+    const company = profile.workrole[0].company
+    const title = profile.workrole[0].role
+    res.render('pages/dashboard', {
+      profileAvatar: req.user.profilepic,
+      userName: req.user.name,
+      company: company,
+      title: title
+    })
+  })
+})
+
+
+app.get("/create-profile", passport.authenticate("jwt", {
+  session: false
+}), (req, res) => {
+  res.render('pages/create-profile')
+
+})
+
+
 
 const PORT = 5000 || process.env.PORT
 

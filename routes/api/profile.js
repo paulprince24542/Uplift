@@ -9,6 +9,24 @@ const Profile = require("../../models/Profile");
 const User = require("../../models/User");
 
 // @type    POST
+// @route   /api/profile/checProfile
+// @desc    Route for user profile check
+// @access  PRIVATE
+router.get("/checkProfile", passport.authenticate("jwt", {
+  session: false
+}), (req, res) => {
+  Profile.findOne({
+    user: req.user.id
+  }, (err, profile) => {
+    if(profile){
+      res.json("true")
+    }else{
+      res.json("false")
+    }
+  })
+})
+
+// @type    POST
 // @route   /api/profile
 // @desc    Route for personal user profile
 // @access  PRIVATE

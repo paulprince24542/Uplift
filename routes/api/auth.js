@@ -2,6 +2,7 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
+const bodyParser = require("body-parser");
 const key = require("../../connection/config");
 
 // Import User Model
@@ -33,12 +34,12 @@ router.post("/register", (req, res) => {
           gender: req.body.gender
         });
 
-        if(req.body.gender == "male"){
+        if (req.body.gender == "male") {
           newUser.profilepic = "https://cdn4.iconfinder.com/data/icons/avatar-circle-1-1/72/39-512.png"
-        }else{
+        } else {
           newUser.profilepic = "https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-512.png"
         }
-        
+
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) throw err;
