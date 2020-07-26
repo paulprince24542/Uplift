@@ -231,6 +231,33 @@ router.post("/workrole", passport.authenticate('jwt', {
     .catch(err => console.log(err))
 })
 
+router.post("/education", passport.authenticate('jwt', {
+  session: false
+}), (req, res) => {
+  Profile.findOne({
+    user: req.user.id
+  }).then(profile => {
+    if (profile) {
+      //assignment
+      const newWork = {
+        school: req.body.school,
+        degree: req.body.degree,
+        from: req.body.from,
+        to: req.body.to,
+        current: req.body.current,
+      }
+      // profile.workrole.push(newWork);
+      profile.education.unshift(newWork);
+      profile.save().then(profile => {
+        res.json(profile)
+      }).catch(err => console.log(err))
+    } else {
+
+    }
+  })
+    .catch(err => console.log(err))
+})
+
 
 
 module.exports = router;

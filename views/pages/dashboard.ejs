@@ -68,7 +68,7 @@
             <a href="add-education.html" class="btn btn-light">
               <i class="fas fa-graduation-cap text-info mr-1"></i>
               Add Education</a>
-              <a href="edit-profile.html" class="btn btn-light" id="editButton">
+              <a href="/edit-profile" class="btn btn-light" id="editButton">
                 <i class="fas fa-user-circle text-info mr-1"></i> Edit Profile</a>
               <a href="/create-profile" class="btn btn-light" id="addButton">
                 <i class="fab fa-black-tie text-info mr-1"></i>
@@ -76,6 +76,7 @@
           </div>
 
           <!-- Experience -->
+          
           <div>
             <h4 class="mb-2">Experience Credentials</h4>
             <table class="table">
@@ -87,10 +88,11 @@
                   <th />
                 </tr>
               </thead>
+              <% for (var i = 0; i < profileLength.workrole.length; i++ ) { %>
               <tbody>
                 <tr>
-                  <td><%= company %></td>
-                  <td><%= title %></td>
+                  <td><%= company.workrole[i].company %></td>
+                  <td><%= title.workrole[i].role %></td>
                   <td>
                     02-03-2009 - 01-02-2014
                   </td>
@@ -100,24 +102,12 @@
                     </button>
                   </td>
                 </tr>
-                <!-- <tr>
-                  <td>Traversy Media</td>
-                  <td>Instructor & Developer</td>
-                  <td>
-                    02-03-2015 - Now
-                  </td>
-                  <td>
-                    <button class="btn btn-danger">
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            <!-- </table>
-          </div> --> 
+              
           </tbody>
+          <% } %>
           </table>
           </div>
+          
 
           <!-- Education -->
           <div>
@@ -131,10 +121,11 @@
                   <th />
                 </tr>
               </thead>
+              <% for (var i = 0; i < profileLength.education.length; i++ ) { %>
               <tbody>
                 <tr>
-                  <td>Northern Essex</td>
-                  <td>Associates</td>
+                  <td><%= school.education[i].school%></td>
+                  <td><%= degree.education[i].degree%></td>
                   <td>
                     02-03-2007 - 01-02-2009
                   </td>
@@ -145,6 +136,7 @@
                   </td>
                 </tr>
               </tbody>
+              <% } %>
             </table>
           </div>
 

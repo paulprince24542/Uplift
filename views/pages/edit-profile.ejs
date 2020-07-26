@@ -16,7 +16,7 @@
   <!-- Navbar (Signed in) -->
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
     <div class="container">
-      <a class="navbar-brand" href="landing.html">DevConnector</a>
+      <a class="navbar-brand" href="/">DevConnector</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -36,13 +36,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="dashboard.html">
+            <a class="nav-link" href="/dashboard">
               Dashboard
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
-              <img class="rounded-circle" style="width: 25px;margin-right:5px" src="https://www.gravatar.com/avatar/anything?s=200&d=mm"
+              <img class="rounded-circle" style="width: 25px;margin-right:5px" src="<%= profileAvatar %>"
                 alt="" title="You must have a Gravatar connected to your email to display an image" /> Logout
             </a>
           </li>
@@ -56,7 +56,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8 m-auto">
-          <a href="dashboard.html" class="btn btn-light">
+          <a href="/dashboard" class="btn btn-light">
             Go Back
           </a>
           <h1 class="display-4 text-center">Edit Your Profile</h1>
@@ -64,7 +64,7 @@
           <small class="d-block pb-3">* = required field</small>
           <form action="add-experience.html">
             <div class="form-group">
-              <input type="text" class="form-control form-control-lg" placeholder="* Profile handle" name="handle" value="myprofilehandle"
+              <input type="text" class="form-control form-control-lg" placeholder="Username" name="handle" value="<%= username  %>"
                 required />
               <small class="form-text text-muted">A unique handle for your profile URL. Your full name, company name, nickname, etc (This CAN'T be changed later)</small>
             </div>
@@ -83,11 +83,11 @@
               <small class="form-text text-muted">Give us an idea of where you are at in your career</small>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control form-control-lg" placeholder="Company" name="company" value="Edusoft" />
+              <input type="text" class="form-control form-control-lg" placeholder="Company" name="company" value="<%= company  %>" />
               <small class="form-text text-muted">Could be your own company or one you work for</small>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control form-control-lg" placeholder="Website" name="website" value="http://www.edusoft.test"
+              <input type="text" class="form-control form-control-lg" placeholder="Website" name="website" value="<%= website  %>"
               />
               <small class="form-text text-muted">Could be your own or a company website</small>
             </div>
@@ -105,7 +105,7 @@
               <small class="form-text text-muted">If you want your latest repos and a Github link, include your username</small>
             </div>
             <div class="form-group">
-              <textarea class="form-control form-control-lg" placeholder="A short bio of yourself" name="bio">I am a web developer from Florida with around 8 years experience</textarea>
+              <textarea class="form-control form-control-lg" placeholder="A short bio of yourself" name="bio"><%= details  %></textarea>
               <small class="form-text text-muted">Tell us a little about yourself</small>
             </div>
 
@@ -130,7 +130,7 @@
                   <i class="fab fa-facebook"></i>
                 </span>
               </div>
-              <input type="text" class="form-control form-control-lg" placeholder="Facebook Page URL" name="facebook" />
+              <input type="text" class="form-control form-control-lg" placeholder="Facebook Page URL" name="facebook" value="<%= facebook  %>"/>
             </div>
 
             <div class="input-group mb-3">
@@ -148,7 +148,7 @@
                   <i class="fab fa-youtube"></i>
                 </span>
               </div>
-              <input type="text" class="form-control form-control-lg" placeholder="YouTube Channel URL" name="youtube" />
+              <input type="text" class="form-control form-control-lg" placeholder="YouTube Channel URL" value="<%= youtube  %>" name="youtube" />
             </div>
 
             <div class="input-group mb-3">
@@ -157,7 +157,7 @@
                   <i class="fab fa-instagram"></i>
                 </span>
               </div>
-              <input type="text" class="form-control form-control-lg" placeholder="Instagram Page URL" name="instagram" />
+              <input type="text" class="form-control form-control-lg" placeholder="Instagram Page URL" value="<%= instagram  %>" name="instagram" />
             </div>
             <input type="submit" class="btn btn-info btn-block mt-4" />
           </form>

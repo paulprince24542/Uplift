@@ -51,6 +51,27 @@ const ProfileSchema = new Schema({
       },
     },
   ],
+  education: [
+    {
+      school: {
+        type: String,
+        required: true,
+      },
+      degree: {
+        type: String,
+      },
+      from: {
+        type: Date,
+      },
+      to: {
+        type: Date,
+      },
+      current: {
+        type: Boolean,
+        default: false,
+      },
+    },
+  ],
   social: {
     youtube: {
       type: String,
