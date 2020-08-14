@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 const volleyball = require("volleyball");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+var csrf = require('csurf')
+var csrfProtection = csrf({ cookie: true })
+var parseForm = bodyparser.urlencoded({ extended: false })
 
 const app = express();
 
@@ -58,8 +61,8 @@ app.get("/", (req, res) => {
   res.render("pages/home");
 });
 
-app.get("/login", (req, res) => {
-  res.render("pages/login");
+app.get("/login", csrfProtection, (req, res) => {
+  res.render("pages/login", { csrfToken: req.csrfToken() });
 });
 
 app.get("/register", (req, res) => {
@@ -114,14 +117,14 @@ app.get(
         res.render("pages/edit-profile", {
           profileAvatar: req.user.profilepic,
           username: editprofile.username,
-          website:editprofile.website,
-          country:editprofile.country,
-          language:editprofile.languages[0],
-          portfolio:editprofile.portfolio,
-          facebook:editprofile.social.facebook,
-          youtube:editprofile.social.youtube,
-          instagram:editprofile.social.instagram,
-          linkedin:editprofile.social.linkedin
+          website: editprofile.website,
+          country: editprofile.country,
+          language: editprofile.languages[0],
+          portfolio: editprofile.portfolio,
+          facebook: editprofile.social.facebook,
+          youtube: editprofile.social.youtube,
+          instagram: editprofile.social.instagram,
+          linkedin: editprofile.social.linkedin
         });
         console.log(editprofile.workrole.length)
       }
@@ -134,7 +137,7 @@ app.get(
   passport.authenticate("jwt", {
     session: false,
   }),
-  (req, res) => { 
+  (req, res) => {
     res.render("pages/add-experience")
   }
 );
@@ -144,7 +147,7 @@ app.get(
   passport.authenticate("jwt", {
     session: false,
   }),
-  (req, res) => { 
+  (req, res) => {
     res.render("pages/add-education")
   }
 );
@@ -154,7 +157,7 @@ app.get(
   passport.authenticate("jwt", {
     session: false,
   }),
-  (req, res) => { 
+  (req, res) => {
     res.render("pages/add-profile")
   }
 );

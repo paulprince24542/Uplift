@@ -1,9 +1,6 @@
 async function login() {
 
-  // Read the CSRF token from the <meta> tag
   var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-
-
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 

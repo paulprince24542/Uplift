@@ -3,6 +3,11 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const key = require("../../connection/config");
+const bodyParser = require('body-parser'); 
+var csrf = require('csurf')
+var csrfProtection = csrf({ cookie: true })
+var parseForm = bodyParser.urlencoded({ extended: false })
+
 
 // Import User Model
 const User = require("../../models/User");
@@ -63,7 +68,7 @@ router.post("/register", (req, res) => {
 // @route   /api/auth/register
 // @desc    Route for login of users
 // @access  PUBLIC
-router.post("/login", (req, res) => {
+router.post("/login", parseForm, csrfProtection, (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
