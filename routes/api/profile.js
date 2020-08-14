@@ -1,6 +1,10 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
+const bodyParser = require('body-parser');
+var csrf = require('csurf')
+var csrfProtection = csrf({ cookie: true })
+var parseForm = bodyParser.urlencoded({ extended: false })
 
 // Import Profile Model
 const Profile = require("../../models/Profile");
@@ -260,7 +264,7 @@ router.post(
   "/education",
   passport.authenticate("jwt", {
     session: false,
-  }),
+  }), parseForm, csrfProtection,
   (req, res) => {
     Profile.findOne({
       user: req.user.id,

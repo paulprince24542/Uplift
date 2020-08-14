@@ -146,9 +146,9 @@ app.get(
   "/add-education",
   passport.authenticate("jwt", {
     session: false,
-  }),
+  }), csrfProtection,
   (req, res) => {
-    res.render("pages/add-education")
+    res.render("pages/add-education", { csrfToken: req.csrfToken() })
   }
 );
 

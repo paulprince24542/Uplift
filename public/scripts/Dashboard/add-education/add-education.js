@@ -1,5 +1,6 @@
 async function addEducation() {
 
+    var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     const school = document.getElementById("school").value
     const degree = document.getElementById("degree").value;
     const course = document.getElementById("course").value;
@@ -32,8 +33,10 @@ async function addEducation() {
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            'CSRF-Token': token
         },
         body: data,
     });
+    window.location.assign("/dashboard");
     form.reset();
 }
