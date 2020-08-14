@@ -4,12 +4,14 @@ const mongoose = require("mongoose");
 const volleyball = require("volleyball");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+
 const app = express();
 
 //Sub Routes
 const auth = require("./routes/api/auth");
 const questions = require("./routes/api/questions");
 const profile = require("./routes/api/profile");
+
 
 //Middleware for bodyparser
 app.use(cookieParser());
@@ -80,19 +82,10 @@ app.get(
       },
       (err, profile) => {
         console.log(profile);
-        const company = profile; //For company in profile
-        const profileLength = profile; //for length of workrole array in profile
-        const title = profile; //Title or role in profile
-        const school = profile
-        const degree = profile
         res.render("pages/dashboard", {
           profileAvatar: req.user.profilepic,
-          userName: req.user.name,
-          company: company,
-          title: title,
-          profileLength: profileLength,
-          school: school,
-          degree:degree
+          profileName: req.user.name,
+          profile: profile,
         });
       }
     );
@@ -121,15 +114,48 @@ app.get(
         res.render("pages/edit-profile", {
           profileAvatar: req.user.profilepic,
           username: editprofile.username,
-          company:editprofile.workrole[0].company,
           website:editprofile.website,
-          details:editprofile.workrole[0].details,
+          country:editprofile.country,
+          language:editprofile.languages[0],
+          portfolio:editprofile.portfolio,
           facebook:editprofile.social.facebook,
           youtube:editprofile.social.youtube,
           instagram:editprofile.social.instagram,
+          linkedin:editprofile.social.linkedin
         });
+        console.log(editprofile.workrole.length)
       }
     );
+  }
+);
+
+app.get(
+  "/add-experience",
+  passport.authenticate("jwt", {
+    session: false,
+  }),
+  (req, res) => { 
+    res.render("pages/add-experience")
+  }
+);
+
+app.get(
+  "/add-education",
+  passport.authenticate("jwt", {
+    session: false,
+  }),
+  (req, res) => { 
+    res.render("pages/add-education")
+  }
+);
+
+app.get(
+  "/add-profile",
+  passport.authenticate("jwt", {
+    session: false,
+  }),
+  (req, res) => { 
+    res.render("pages/add-profile")
   }
 );
 

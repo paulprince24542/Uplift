@@ -2,11 +2,12 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
-const bodyParser = require("body-parser");
 const key = require("../../connection/config");
 
 // Import User Model
 const User = require("../../models/User");
+
+
 
 // @type    POST
 // @route   /api/auth/register
@@ -26,18 +27,19 @@ router.post("/register", (req, res) => {
           msg: "Email is currently in use",
         });
       } else {
-
         const newUser = new User({
           name: req.body.name,
           email: req.body.email,
           password: req.body.password,
-          gender: req.body.gender
+          gender: req.body.gender,
         });
 
-        if (req.body.gender == "male") {
-          newUser.profilepic = "https://cdn4.iconfinder.com/data/icons/avatar-circle-1-1/72/39-512.png"
+        if (req.body.gender == "Male") {
+          newUser.profilepic =
+            "https://cdn4.iconfinder.com/data/icons/avatar-circle-1-1/72/39-512.png";
         } else {
-          newUser.profilepic = "https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-512.png"
+          newUser.profilepic =
+            "https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-512.png";
         }
 
         bcrypt.genSalt(10, (err, salt) => {
@@ -111,6 +113,15 @@ router.post("/login", (req, res) => {
       }
     }
   );
+});
+
+// @type    GET
+// @route   /api/auth/lgout
+// @desc    logout User
+// @access  PRIVATE
+router.get("/logout", function (req, res) {
+  req.logout();
+  res.redirect("/")
 });
 
 // @type    GET

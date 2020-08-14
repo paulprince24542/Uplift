@@ -32,6 +32,7 @@ const ProfileSchema = new Schema({
       },
       company: {
         type: String,
+        required: true
       },
       country: {
         type: String,
@@ -60,6 +61,9 @@ const ProfileSchema = new Schema({
       degree: {
         type: String,
       },
+      course: {
+        type: String,
+      },
       from: {
         type: Date,
       },
@@ -74,6 +78,9 @@ const ProfileSchema = new Schema({
   ],
   social: {
     youtube: {
+      type: String,
+    },
+    linkedin: {
       type: String,
     },
     facebook: {

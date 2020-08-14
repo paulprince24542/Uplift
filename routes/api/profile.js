@@ -12,19 +12,26 @@ const User = require("../../models/User");
 // @route   /api/profile/checProfile
 // @desc    Route for user profile check
 // @access  PRIVATE
-router.get("/checkProfile", passport.authenticate("jwt", {
-  session: false
-}), (req, res) => {
-  Profile.findOne({
-    user: req.user.id
-  }, (err, profile) => {
-    if(profile){
-      res.json("true")
-    }else{
-      res.json("false")
-    }
-  })
-})
+router.get(
+  "/checkProfile",
+  passport.authenticate("jwt", {
+    session: false,
+  }),
+  (req, res) => {
+    Profile.findOne(
+      {
+        user: req.user.id,
+      },
+      (err, profile) => {
+        if (profile) {
+          res.json("true");
+        } else {
+          res.json("false");
+        }
+      }
+    );
+  }
+);
 
 // @type    POST
 // @route   /api/profile
@@ -77,6 +84,7 @@ router.post(
     if (req.body.youtube) profileValues.social.youtube = req.body.youtube;
     if (req.body.facebook) profileValues.social.facebook = req.body.facebook;
     if (req.body.instagram) profileValues.social.instagram = req.body.instagram;
+    if (req.body.linkedin) profileValues.social.linkedin = req.body.linkedin;
 
     console.log(profileValues);
 
@@ -152,112 +160,225 @@ router.get("/:username", (req, res) => {
 //     })
 // });
 
-
 // @type    POST
 // @route   /api/profile/find/everyone
 // @desc    Route for getting user profile of  EVERYONE
 // @access  PUBLIC
 router.get("/find/everyone", (req, res) => {
-  Profile.find(
-    (err, profiles) => {
-      if (!profiles) {
-        res.status(404).json({
-          usernotfound: "No profile was found",
-        });
-      }
-      res.json(profiles);
+  Profile.find((err, profiles) => {
+    if (!profiles) {
+      res.status(404).json({
+        usernotfound: "No profile was found",
+      });
     }
-  ).populate("user", ["name", "profilepic"]);
+    res.json(profiles);
+  }).populate("user", ["name", "profilepic"]);
 });
 
 // @type    DELETE
 // @route   /api/profile/
 // @desc    Route for deleting user based on ID
 // @access  PRIVATE
-router.delete('/', passport.authenticate("jwt", {
-  session: false
-}), (req, res) => {
-  Profile.findOne({
-    user: req.user.id
-  })
-  Profile.findOneAndRemove({
-    user: req.user.id
-  }).then(() => {
-    User.findOneAndRemove({
-      _id: req.user.id
-    }).then(() => {
-      res.json({
-        success: "delete was a success"
-      })
-    }).catch(err => {
-      console.log(err)
+router.delete(
+  "/",
+  passport.authenticate("jwt", {
+    session: false,
+  }),
+  (req, res) => {
+    Profile.findOne({
+      user: req.user.id,
+    });
+    Profile.findOneAndRemove({
+      user: req.user.id,
     })
-  }).catch(err => {
-    console.log(err)
-  })
-})
+      .then(() => {
+        User.findOneAndRemove({
+          _id: req.user.id,
+        })
+          .then(() => {
+            res.json({
+              success: "delete was a success",
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
 
 // @type    POST
 // @route   /api/profile/mywork
 // @desc    Route for adding work profile of a person
 // @access  PRIVATE
 
-router.post("/workrole", passport.authenticate('jwt', {
-  session: false
-}), (req, res) => {
-  Profile.findOne({
-    user: req.user.id
-  }).then(profile => {
-    if (profile) {
-      //assignment
-      const newWork = {
-        role: req.body.role,
-        company: req.body.company,
-        country: req.body.country,
-        from: req.body.from,
-        to: req.body.to,
-        current: req.body.current,
-        details: req.body.details,
-      }
-      // profile.workrole.push(newWork);
-      profile.workrole.unshift(newWork);
-      profile.save().then(profile => {
-        res.json(profile)
-      }).catch(err => console.log(err))
-    } else {
+router.post(
+  "/workrole",
+  passport.authenticate("jwt", {
+    session: false,
+  }),
+  (req, res) => {
+    Profile.findOne({
+      user: req.user.id,
+    })
+      .then((profile) => {
+        if (profile) {
+          //assignment
+          const newWork = {
+            role: req.body.role,
+            company: req.body.company,
+            country: req.body.country,
+            from: req.body.from,
+            to: req.body.to,
+            current: req.body.current,
+            details: req.body.details,
+          };
+          // profile.workrole.push(newWork);
+          profile.workrole.unshift(newWork);
+          profile
+            .save()
+            .then((profile) => {
+              res.json(profile);
+            })
+            .catch((err) => console.log(err));
+        } else {
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+);
 
-    }
-  })
-    .catch(err => console.log(err))
-})
+// @type    POST
+// @route   /api/profile/education
+// @desc    Route for adding work profile of a person
+// @access  PRIVATE
 
-router.post("/education", passport.authenticate('jwt', {
-  session: false
-}), (req, res) => {
-  Profile.findOne({
-    user: req.user.id
-  }).then(profile => {
-    if (profile) {
-      //assignment
-      const newWork = {
-        school: req.body.school,
-        degree: req.body.degree,
-        from: req.body.from,
-        to: req.body.to,
-        current: req.body.current,
-      }
-      // profile.workrole.push(newWork);
-      profile.education.unshift(newWork);
-      profile.save().then(profile => {
-        res.json(profile)
-      }).catch(err => console.log(err))
-    } else {
+router.post(
+  "/education",
+  passport.authenticate("jwt", {
+    session: false,
+  }),
+  (req, res) => {
+    Profile.findOne({
+      user: req.user.id,
+    })
+      .then((profile) => {
+        if (profile) {
+          //assignment
+          const newWork = {
+            school: req.body.school,
+            degree: req.body.degree,
+            course: req.body.degree,
+            from: req.body.from,
+            to: req.body.to,
+            current: req.body.current,
+          };
+          // profile.workrole.push(newWork);
+          profile.education.unshift(newWork);
+          profile
+            .save()
+            .then((profile) => {
+              res.json(profile);
+              console.log(profile);
+            })
+            .catch((err) => console.log(err));
+        } else {
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+);
 
-    }
-  })
-    .catch(err => console.log(err))
-})
+// @route   DELETE api/profile
+// @desc    Delete user and profile
+// @access  Private
+router.delete(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOneAndRemove({ user: req.user.id }).then(() => {
+      User.findOneAndRemove({ _id: req.user.id }).then(() =>
+        res.json({ success: true })
+      );
+    });
+  }
+);
 
+// @type    Delete
+// @route   /api/profile/workrole
+// @desc    Route for adding work profile of a person
+// @access  PRIVATE
 
+router.delete(
+  "/workrole/:w_id",
+  passport.authenticate("jwt", {
+    session: false,
+  }),
+  (req, res) => {
+    Profile.findOne({
+      user: req.user.id,
+    })
+      .then((profile) => {
+        const removeThis = profile.workrole
+          .map((item) => {
+            console.log(item);
+            item.id;
+          })
+          .indexOf(req.params.w_id);
+
+        profile.workrole.splice(removeThis, 1);
+
+        profile
+          .save()
+          .then((profile) => {
+            res.json(profile);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => console.log(err));
+  }
+);
+
+// @type    Delete
+// @route   /api/profile/education
+// @desc    Route for adding work profile of a person
+// @access  PRIVATE
+
+router.delete(
+  "/education/:e_id",
+  passport.authenticate("jwt", {
+    session: false,
+  }),
+  (req, res) => {
+    Profile.findOne({
+      user: req.user.id,
+    })
+      .then((profile) => {
+        const removeThis = profile.education
+          .map((item) => {
+            console.log(item);
+            item.id;
+          })
+          .indexOf(req.params.e_id);
+
+        profile.education.splice(removeThis, 1);
+
+        profile
+          .save()
+          .then((profile) => {
+            res.json(profile);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => console.log(err));
+  }
+);
 
 module.exports = router;
