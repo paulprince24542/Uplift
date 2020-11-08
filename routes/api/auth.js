@@ -3,16 +3,16 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const key = require("../../connection/config");
-const bodyParser = require('body-parser'); 
-var csrf = require('csurf')
-var csrfProtection = csrf({ cookie: true })
-var parseForm = bodyParser.urlencoded({ extended: false })
-
+const bodyParser = require("body-parser");
+const stringGen = require("crypto-random-string");
+const uuid = require("uuid");
+var csrf = require("csurf");
+var csrfProtection = csrf({ cookie: true });
+var parseForm = bodyParser.urlencoded({ extended: false });
 
 // Import User Model
 const User = require("../../models/User");
-
-
+const e = require("express");
 
 // @type    POST
 // @route   /api/auth/register
@@ -32,11 +32,16 @@ router.post("/register", (req, res) => {
           msg: "Email is currently in use",
         });
       } else {
+        const accountToken = stringGen({
+          length: 58,
+          type: "hex",
+        });
         const newUser = new User({
           name: req.body.name,
           email: req.body.email,
           password: req.body.password,
           gender: req.body.gender,
+          accountToken: accountToken,
         });
 
         if (req.body.gender == "Male") {
@@ -50,16 +55,58 @@ router.post("/register", (req, res) => {
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) throw err;
-            console.log(hash);
+            const verLink = `http://localhost:5000/api/auth/user/${newUser.id}/tokgen/${newUser.accountToken}`;
+            console.log(verLink);
             newUser.password = hash;
             newUser.save((err, user) => {
               if (err) {
                 console.log(err);
-              } else res.status(200).json(user);
+              } else
+                res.status(200).json({
+                  user: user,
+                  msg: `Link Generated: ${verLink}`,
+                });
             });
           });
         });
       }
+    }
+  );
+});
+
+// router.get("/userid/:userid/valid?token/:mailVerToken", (req, res) => {
+//   var { userid, mailVerToken } = req.params;
+//   res.json({
+//     msg: userid,
+//     msg2: mailVerToken,
+//   });
+// });
+
+router.get("/user/:userid/tokgen/:token", (req, res) => {
+  const id = req.params.userid;
+  const token = req.params.token;
+  User.findOne(
+    {
+      accountToken: token,
+    },
+    (err, found) => {
+      User.findOne(
+        {
+          _id: id,
+        },
+        (err, idFound) => {
+          idFound.accountVerified = true;
+          idFound.save((err, saved) => {
+            if (err) throw err;
+          });
+          if (err) throw err;
+          res.status(200).json({
+            account: idFound,
+            msg: "Account Has Been Successfully Verified",
+          });
+        }
+      );
+      if (err) throw err;
     }
   );
 });
@@ -126,7 +173,7 @@ router.post("/login", parseForm, csrfProtection, (req, res) => {
 // @access  PRIVATE
 router.get("/logout", function (req, res) {
   req.logout();
-  res.redirect("/")
+  res.redirect("/");
 });
 
 // @type    GET
