@@ -4,8 +4,10 @@ font-family: 'Roboto Slab', serif;
 font-family: 'Source Serif Pro', serif; */
 
 :root {
-	--heading-color: #0c0d0e;
-	--paragraph-color: #242729;
+  --heading-color: #0c0d0e;
+  --paragraph-color: #242729;
+  --primary-color: #32cd32;
+  --primary-color-hover: #2db82d;
 }
 
 h1,
@@ -14,7 +16,7 @@ h3,
 h4,
 h5 {
   color: var(--heading-color);
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
 }
 
 p {
@@ -22,7 +24,35 @@ p {
   font-weight: 300;
   line-height: 28px;
   color: var(--paragraph-color);
-  font-family: 'Source Serif Pro', serif;
+  font-family: "Source Serif Pro", serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+b {
+  color: var(--primary-color);
+}
+
+button {
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+button:hover {
+  background-color: var(--primary-color-hover);
+}
+
+button:focus {
+  background-color: var(--primary-color-hover);
+  border: none;
+  outline: none;
 }
 
 .section-margin {

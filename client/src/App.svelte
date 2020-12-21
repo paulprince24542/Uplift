@@ -1,11 +1,10 @@
 <script>
-	import Tabs from "./components/Home.svelte";
+	import Home from "./components/Home.svelte";
 </script>
 
-<main>
-	
-</main>
-
 <style>
-
 </style>
+
+<main>
+	<Home />
+</main>
