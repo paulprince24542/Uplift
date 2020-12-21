@@ -1,9 +1,9 @@
 <script>
-	import Tabs from "./components/Home.svelte";
+
 </script>
 
 <main>
-	
+    
 </main>
 
 <style>
