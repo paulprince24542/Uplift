@@ -66,3 +66,42 @@ button:focus {
     margin-bottom: 70px;
   }
 }
+
+.login-box {
+  box-shadow: 0px 0px 9px 1px rgba(0, 0, 0, 0.73);
+  border-radius: 10px;
+  padding: 80px 40px;
+}
+
+input:focus {
+  border: none;
+  border-left: 8px solid var(--primary-color);
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.content {
+  padding: 20px;
+  margin-right: 50px;
+}
+
+@media (max-width: 767px) {
+  .content {
+      padding: 10px;
+      margin-right: 0px;
+  }
+}
+
+.social-media-icons {
+  margin-top: 10px;
+  margin-bottom: 35px;
+}
+
+.social-media-icons i {
+  color: var(--primary-color);
+} 
