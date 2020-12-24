@@ -10,7 +10,7 @@ export default function Home() {
         <div className="row">
           <div className="col-xl-6 col-lg-6">
             <div className="content text-center">
-              <h1>UpLift</h1>
+              <h1 className="main-heading">UpLift</h1>
               <p>
                 Create a developer profile/portfolio, share posts and get help
                 from other developers

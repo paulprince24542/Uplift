@@ -35,6 +35,13 @@ b {
   color: var(--primary-color);
 }
 
+input:focus {
+  border: none;
+  border-left: 8px solid var(--primary-color);
+  border-radius: 10px;
+  box-shadow: none;
+}
+
 button {
   background-color: var(--primary-color);
   color: white;
@@ -55,13 +62,6 @@ button:focus {
   outline: none;
 }
 
-input:focus {
-  border: none;
-  border-left: 8px solid var(--primary-color);
-  border-radius: 10px;
-  box-shadow: none;
-}
-
 .section-margin {
   margin-top: 120px;
   margin-bottom: 120px;
@@ -74,27 +74,25 @@ input:focus {
   }
 }
 
-.login-box {
-  box-shadow: 0px 0px 9px 1px rgba(0, 0, 0, 0.73);
-  border-radius: 10px;
-  padding: 80px 40px;
-}
-
-button {
-  width: 100%;
-  margin-top: 20px;
-}
+/************* Home Page *************/
 
 .content {
+  margin-top: 70px;
   padding: 20px;
   margin-right: 50px;
 }
 
 @media (max-width: 767px) {
   .content {
+    margin-top: 0px;
     padding: 10px;
     margin-right: 0px;
   }
+}
+
+.main-heading {
+  color: var(--primary-color);
+  letter-spacing: 1px;
 }
 
 .social-media-icons {
@@ -104,4 +102,19 @@ button {
 
 .social-media-icons i {
   color: var(--primary-color);
+}
+
+/************* Home Page *************/
+
+/************* SignIn Page *************/
+
+.login-box {
+  box-shadow: 0px 0px 9px 1px rgba(0, 0, 0, 0.73);
+  border-radius: 10px;
+  padding: 80px 40px;
+}
+
+button {
+  width: 100%;
+  margin-top: 20px;
 }
