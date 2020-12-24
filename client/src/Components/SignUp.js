@@ -22,7 +22,7 @@ export default function SignUp() {
                   />
                   <label for="floatingInput">Email address</label>
                 </div>
-                <div className="form-floating">
+                <div className="form-floating mb-3">
                   <input
                     type="password"
                     className="form-control"
@@ -30,6 +30,15 @@ export default function SignUp() {
                     placeholder="Password"
                   />
                   <label for="floatingPassword">Password</label>
+                </div>
+                <div className="form-floating">
+                  <input
+                    type="password"
+                    className="form-control"
+                    id="floatingRepeatPassword"
+                    placeholder="Repeat Password"
+                  />
+                  <label for="floatingRepeatPassword">Repeat Password</label>
                 </div>
                 <button>SignIn</button>
               </form>
