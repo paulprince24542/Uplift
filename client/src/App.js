@@ -5,14 +5,12 @@ import SignUp from "./Components/SignUp";
 
 function App() {
   return (
-    <>
       <Router>
         <Switch>
           <Route path="/" exact component={SignIn} />
           <Route path="/SignUp" component={SignUp} />
         </Switch>
       </Router>
-    </>
   );
 }
 

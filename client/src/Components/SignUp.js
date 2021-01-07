@@ -40,7 +40,7 @@ export default function SignUp() {
                   />
                   <label for="floatingRepeatPassword">Repeat Password</label>
                 </div>
-                <button>SignIn</button>
+                <button>SignUp</button>
               </form>
               <Link to="/">
                 <h5 className="mt-3 text-center">
