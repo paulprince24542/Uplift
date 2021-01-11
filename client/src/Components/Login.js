@@ -2,7 +2,7 @@ import React from "react";
 import UpLift from "./Uplift";
 import { Link } from "react-router-dom";
 
-export default function SignIn() {
+export default function LogIn() {
   return (
     <section className="section-margin">
       <div className="container">
@@ -31,7 +31,7 @@ export default function SignIn() {
                   />
                   <label for="floatingPassword">Password</label>
                 </div>
-                <button>SignIn</button>
+                <button className="login-button">Login</button>
               </form>
               <Link to="/SignUp">
                 <h5 className="mt-3 text-center">
