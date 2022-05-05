@@ -1,3 +1,0 @@
-function accountVerify(req, res) {
-    
-}

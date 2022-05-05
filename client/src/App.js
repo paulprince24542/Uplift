@@ -1,16 +1,19 @@
-import "./Style.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import LogIn from "./Components/Login";
-import SignUp from "./Components/SignUp";
+// Components
+import Hero from "./components/hero"
+import Navbar from "./components/navbar"
+import Footer from "./components/footer"
+import Login from "./components/login"
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 
 function App() {
   return (
-      <Router>
-        <Switch>
-          <Route path="/" exact component={LogIn} />
-          <Route path="/SignUp" component={SignUp} />
-        </Switch>
-      </Router>
+    <div className="App">
+      <Navbar/>
+      <Hero/>
+      <Footer/>
+    </div>
   );
 }
 
