@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Eczar&display=swap");
+
+.main-container {
+  background-color: #051d29;
+  height: 50rem;
+}
+
+.head-div {
+  display: flex;
+  color: wheat;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20rem;
+}
+
+.main-heading {
+  color: whitesmoke;
+  font-family: "Eczar", serif;
+  font-size: 4.5rem;
+}
+
+.sub-par {
+  font-size: 1.5rem;
+  color: rgba(250, 251, 255, 0.646);
+}
+
+.sub-head{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 3rem;
+    color: beige;
+}

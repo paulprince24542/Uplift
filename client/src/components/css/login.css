@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Eczar&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Changa:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
+.login-container{
+    background-image: "/public/1.jpg";
+    
+}
+.side1{
+    background-color: #000000;
+    /* padding: 22rem; */
+    text-align: center;
+    
+    
+}
+
+
+.heading-1{
+    color: white;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 5rem;
+    margin-top: 18rem;
+}
+
+.heading-2{
+    color: white;
+    text-align: 1rem;
+}
+
+.side2{
+    background-color: #000000;
+}
+
+.form-head{
+    text-align: center;
+    font-family: 'Oswald', sans-serif;
+    font-weight: bold;
+    font-size: 3rem;
+}
+.main-form{
+    
+    background-color: #a19f9f;
+    border-radius: 2rem;
+    width: 40rem;
+    padding: 9rem;
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+    margin-left: 1rem;
+}
+
+.login-label{
+    color: black;
+    font-family: 'Changa', sans-serif;
+    font-size: 1.4rem;
+}
+
+.login-input{
+    width: 18rem;
+    height: 2.5rem;
+    border-radius: .3rem;
+    border: none;
+}
+
+
+.login-button{
+    width: 8rem;
+    height: 2.5rem;
+    border: none;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: .2rem;
+}
